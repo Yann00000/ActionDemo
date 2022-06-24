@@ -2,7 +2,7 @@ name: MYCI
 on:
   push:
     branches:
-    - master
+    - main
     paths:
     - src/*
 jobs:
