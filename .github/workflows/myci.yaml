@@ -1,9 +1,9 @@
-NAME: MYCI
+name: MYCI
 on:
   push:
     branches:
     - master
-    path:
+    paths:
     - src/*
 jobs:
     check-links:
