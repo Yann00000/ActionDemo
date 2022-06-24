@@ -3,8 +3,8 @@ on:
   push:
     branches:
     - main
-    paths:
-    - src/*
+    # paths:
+    # - src/*
 jobs:
     check-links:
       runs-on: ubuntu-latest
