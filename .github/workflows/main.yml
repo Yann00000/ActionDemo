@@ -3,8 +3,7 @@ on:
   push:
     branches:
       - test
-    tags:
-      - "v*.*.*"
+
     # paths:
     # - src/*
 jobs:
@@ -20,7 +19,7 @@ jobs:
         uses: actions/setup-node@v3
       
       - name: node version
-        if: ${{ github.ref == 'refs/heads/test' && endsWith(github.ref, 'refs/tags/') }}
+        if: ${{ startsWith(github.ref, 'refs/tags/') }}
         run: | 
           echo ${{  secrets.MYSECRETS  }}
           npm version
