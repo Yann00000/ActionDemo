@@ -1,8 +1,10 @@
 name: MYCI
 on:
   push:
-    branches:
-      - test
+    # branches:
+    #   - test
+    tags:
+      - "v*.*.*"
 
     # paths:
     # - src/*
