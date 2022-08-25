@@ -2,15 +2,25 @@ name: MYCI
 on:
   push:
     branches:
-    - main
+      - test
+    tags:
+      - "v*.*.*"
     # paths:
     # - src/*
 jobs:
     check-links:
       runs-on: ubuntu-latest
       steps:  
-      - uses: actions/checkout@v1 
-      - uses: actions/setup-node@v3
+      - name: pull repo
+        uses: actions/checkout@v1 
+        with:
+          ref: 'test'
+      
+      - name: install node
+        uses: actions/setup-node@v3
+      
+      - name: node version
+        if: ${{ github.ref == 'refs/heads/pre' && startsWith(github.ref, 'refs/tags/') }}
       - run: echo ${{  secrets.MYSECRETS  }}
       - run: npm version
       - run: echo 111
