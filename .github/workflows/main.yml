@@ -20,7 +20,7 @@ jobs:
         uses: actions/setup-node@v3
       
       - name: node version
-        if: ${{ startsWith(github.ref, 'refs/tags/') && github.ref == 'refs/heads/test' }}
+        if: ${{ github.ref, 'refs/tags/' && github.ref == 'refs/heads/test' }}
         run: | 
           echo ${{  secrets.MYSECRETS  }}
           npm version
