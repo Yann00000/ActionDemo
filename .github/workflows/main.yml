@@ -20,6 +20,7 @@ jobs:
           ls
           ls /home/runner/work/
           ls /home/runner/work/ActionDemo/
+          ls /home/runner/work/ActionDemo/ACtionDemo
       # - uses: actions/checkout@v1 
       # - uses: actions/setup-node@v3
       # - run: echo ${{  secrets.MYSECRETS  }}
