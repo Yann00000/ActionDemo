@@ -17,6 +17,7 @@ jobs:
 
       - name: ls checkout
         run: |
+          cat test.txt
           ls /home/runner/work/
           ls /home/runner/work/ActionDemo/
       # - uses: actions/checkout@v1 
