@@ -8,15 +8,16 @@ on:
     # paths:
     # - src/*
 jobs:
-    check-links:
-      runs-on: ubuntu-latest
-      steps:  
-        - name: checkout
-          uses: actions/checkout@v3
+  TEST:
+    name: test
+    runs-on: ubuntu-latest
+    steps:  
+      - name: checkout
+        uses: actions/checkout@v3
 
-        - name: ls checkout
-          run: |
-            ls
+      - name: ls checkout
+        run: |
+          ls
       # - uses: actions/checkout@v1 
       # - uses: actions/setup-node@v3
       # - run: echo ${{  secrets.MYSECRETS  }}
