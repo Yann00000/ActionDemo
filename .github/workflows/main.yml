@@ -1,32 +1,3 @@
-# name: MYCI
-# on:
-#   push:
-#     branches:
-#     - main
-#     # tags:
-#     #   - "v*.*.*"
-#     # paths:
-#     # - src/*
-# jobs:
-#   TEST:
-#     name: test
-#     runs-on: ubuntu-latest
-#     steps:  
-#       - name: checkout
-#         uses: actions/checkout@v3
-
-#       - name: ls checkout
-#         run: |
-#           ls 
-
-#       # - uses: actions/checkout@v1 
-#       # - uses: actions/setup-node@v3
-#       # - run: echo ${{  secrets.MYSECRETS  }}
-#       # - run: npm version
-#       # - run: echo 111
-      
-
-
 name: tronlink_prd_ci
 
 on: 
@@ -57,4 +28,34 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_TRONLINK_PRD }}
           AWS_REGION: 'us-east-1'
           SOURCE_DIR: './'
+
+
+# name: MYCI
+# on:
+#   push:
+#     branches:
+#     - main
+#     # tags:
+#     #   - "v*.*.*"
+#     # paths:
+#     # - src/*
+# jobs:
+#   TEST:
+#     name: test
+#     runs-on: ubuntu-latest
+#     steps:  
+#       - name: checkout
+#         uses: actions/checkout@v3
+
+#       - name: ls checkout
+#         run: |
+#           ls 
+
+#       # - uses: actions/checkout@v1 
+#       # - uses: actions/setup-node@v3
+#       # - run: echo ${{  secrets.MYSECRETS  }}
+#       # - run: npm version
+#       # - run: echo 111
+      
+
 
