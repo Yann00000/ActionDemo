@@ -1,28 +1,60 @@
-name: MYCI
-on:
+# name: MYCI
+# on:
+#   push:
+#     branches:
+#     - main
+#     # tags:
+#     #   - "v*.*.*"
+#     # paths:
+#     # - src/*
+# jobs:
+#   TEST:
+#     name: test
+#     runs-on: ubuntu-latest
+#     steps:  
+#       - name: checkout
+#         uses: actions/checkout@v3
+
+#       - name: ls checkout
+#         run: |
+#           ls 
+
+#       # - uses: actions/checkout@v1 
+#       # - uses: actions/setup-node@v3
+#       # - run: echo ${{  secrets.MYSECRETS  }}
+#       # - run: npm version
+#       # - run: echo 111
+      
+
+
+name: tronlink_prd_ci
+
+on: 
   push:
     branches:
-    - main
-    # tags:
-    #   - "v*.*.*"
-    # paths:
-    # - src/*
-jobs:
-  TEST:
-    name: test
+      - master
+
+env:
+  AWS_REGION: us-east-1
+  AWS_S3_BUCKET: 'tronlink.dlive.org'
+
+permissions: write-all
+ 
+jobs:  
+  Deploy:
     runs-on: ubuntu-latest
-    steps:  
-      - name: checkout
+    steps:
+      - name: Checkout
         uses: actions/checkout@v3
 
-      - name: ls checkout
-        run: |
-          ls 
-
-      # - uses: actions/checkout@v1 
-      # - uses: actions/setup-node@v3
-      # - run: echo ${{  secrets.MYSECRETS  }}
-      # - run: npm version
-      # - run: echo 111
-      
+      - name: upload assets
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --follow-symlinks 
+        env:
+          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET_TRONLINK_PRD }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_TRONLINK_PRD }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_TRONLINK_PRD }}
+          AWS_REGION: 'us-east-1'
+          SOURCE_DIR: './'
 
