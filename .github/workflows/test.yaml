@@ -36,4 +36,14 @@ jobs:
         run: |
           cd staging
           terraform fmt -check
+          terraform plan
+        continue-on-error: true
+
+      - name: Terraform Plan
+        id: plan
+        # if: github.event_name == 'pull_request'
+        run: |
+          cd staging
+          terraform plan -no-color -input=false
+
         continue-on-error: true
