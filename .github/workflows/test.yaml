@@ -12,13 +12,26 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
+ 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.2.5
 
-      - name: Terraform fmt
-        id: fmt
-        run: terraform fmt -check
-        continue-on-error: true
+      - name: Checkout dlive-infra-code
+        uses: actions/checkout@v3
+        with:
+          repository: "lino-network/dlive-infra-code"
+          path: dlive-infra-code
+
+      # - name: "Setup - Build AWS Credentials"
+      #   run: |
+      #     mkdir -p ~/.aws
+      #     echo "[default]" > ~/.aws/credentials
+      #     echo "aws_access_key_id = ${{ secrets.AWS_ACCESS_KEY_ID }}" >> ~/.aws/credentials
+      #     echo "aws_secret_access_key = ${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> ~/.aws/credentials
+
+      # - name: Terraform fmt
+      #   id: fmt
+      #   run: terraform fmt -check
+      #   continue-on-error: true
