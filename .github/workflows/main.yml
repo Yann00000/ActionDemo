@@ -36,8 +36,8 @@ jobs:
           tar cvzf $IMAGE_TAG.tar.gz ./staging 
 
       - name: upload assets
-        run: | 
-          echo "IMAGE_TAG=${GITHUB_REF/refs\/tags\//}"
+        env:
+          IMAGE_TAG: ${{ env.IMAGE_TAG }}
         uses: jakejarvis/s3-sync-action@master
         with:
           args: --follow-symlinks --delete
@@ -46,7 +46,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_STAGING }}
           AWS_REGION: us-east-1
           AWS_S3_BUCKET: 'web-neo-csr-backup'
-          SOURCE_DIR: './$IMAGE_TAG.tar.gz'
+          SOURCE_DIR: './${{ env.IMAGE_TAG }}.tar.gz'
 
 
 # name: MYCI
