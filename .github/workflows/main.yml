@@ -36,6 +36,8 @@ jobs:
           tar cvzf $IMAGE_TAG.tar.gz ./staging 
 
       - name: upload assets
+        run: | 
+          echo "IMAGE_TAG=${GITHUB_REF/refs\/tags\//}"
         uses: jakejarvis/s3-sync-action@master
         with:
           args: --follow-symlinks --delete
