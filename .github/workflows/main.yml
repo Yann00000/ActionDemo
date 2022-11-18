@@ -3,7 +3,7 @@ name: tronlink_prd_ci
 on: 
   push:
     branches:
-      - master
+      - "v*.*.*"
 
 env:
   AWS_REGION: us-east-1
@@ -28,6 +28,11 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_TRONLINK_PRD }}
           AWS_REGION: 'us-east-1'
           SOURCE_DIR: './'
+
+      - name: backup
+        run: |
+          echo "IMAGE_TAG=${GITHUB_REF/refs\/tags\//}"
+          tar cvzf ./ $IMAGE_TAG.tar.gz
 
 
 # name: MYCI
