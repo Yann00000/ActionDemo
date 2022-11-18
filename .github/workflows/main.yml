@@ -36,12 +36,11 @@ jobs:
           tar cvzf $IMAGE_TAG.tar.gz ./staging 
 
       - name: upload assets
-        env:
-          IMAGE_TAG: ${{ env.IMAGE_TAG }}
         uses: jakejarvis/s3-sync-action@master
         with:
           args: --follow-symlinks --delete
         env:
+          IMAGE_TAG: ${{ env.IMAGE_TAG }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_STAGING }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_STAGING }}
           AWS_REGION: us-east-1
