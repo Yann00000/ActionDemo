@@ -46,14 +46,14 @@ jobs:
       - name: upload assets
         uses: jakejarvis/s3-sync-action@master
         with:
-          args: --follow-symlinks --delete
+          args: --follow-symlinks
         env:
           IMAGE_TAG: ${{ env.IMAGE_TAG }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_STAGING }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_STAGING }}
           AWS_REGION: us-east-1
           AWS_S3_BUCKET: 'web-neo-csr-backup'
-          SOURCE_DIR: './${{ env.IMAGE_TAG }}.tar.gz'
+          SOURCE_DIR: './staging'
 
 
 # name: MYCI
