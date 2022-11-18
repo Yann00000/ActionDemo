@@ -1,8 +1,9 @@
 name: tronlink_prd_ci
 
 on: 
+  workflow_dispatch:
   push:
-    branches:
+    tags:
       - "v*.*.*"
 
 env:
