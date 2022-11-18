@@ -45,7 +45,7 @@ jobs:
       - name: upload backup
         run: |  
           echo "IMAGE_TAG=${GITHUB_REF/refs\/tags\//}"
-          aws s3 sync $IMAGE_TAG.tar.gz s3://web-neo-csr-backup 
+          aws s3 sync *.tar.gz s3://web-neo-csr-backup 
 
       - name: upload assets
         uses: jakejarvis/s3-sync-action@master
