@@ -1,49 +1,49 @@
-name: 'Terraform'
+# name: 'Terraform'
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
+# on:
+#   push:
+#     branches:
+#       - main
+#   pull_request:
 
-jobs:  
-  Deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+# jobs:  
+#   Deploy:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v3
  
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v2
-        with:
-          terraform_version: 1.2.5
+#       - name: Setup Terraform
+#         uses: hashicorp/setup-terraform@v2
+#         with:
+#           terraform_version: 1.2.5
 
-      # - name: Checkout dlive-infra-code
-      #   uses: actions/checkout@v3
-      #   with:
-      #     repository: "lino-network/dlive-infra-code"
-      #     path: dlive-infra-code
+#       # - name: Checkout dlive-infra-code
+#       #   uses: actions/checkout@v3
+#       #   with:
+#       #     repository: "lino-network/dlive-infra-code"
+#       #     path: dlive-infra-code
 
-      # - name: "Setup - Build AWS Credentials"
-      #   run: |
-      #     mkdir -p ~/.aws
-      #     echo "[default]" > ~/.aws/credentials
-      #     echo "aws_access_key_id = ${{ secrets.AWS_ACCESS_KEY_ID }}" >> ~/.aws/credentials
-      #     echo "aws_secret_access_key = ${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> ~/.aws/credentials
+#       # - name: "Setup - Build AWS Credentials"
+#       #   run: |
+#       #     mkdir -p ~/.aws
+#       #     echo "[default]" > ~/.aws/credentials
+#       #     echo "aws_access_key_id = ${{ secrets.AWS_ACCESS_KEY_ID }}" >> ~/.aws/credentials
+#       #     echo "aws_secret_access_key = ${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> ~/.aws/credentials
 
-      - name: Terraform fmt
-        id: fmt
-        run: |
-          cd staging
-          terraform fmt -check
-          terraform plan
-        continue-on-error: true
+#       - name: Terraform fmt
+#         id: fmt
+#         run: |
+#           cd staging
+#           terraform fmt -check
+#           terraform plan
+#         continue-on-error: true
 
-      - name: Terraform Plan
-        id: plan
-        # if: github.event_name == 'pull_request'
-        run: |
-          cd staging
-          terraform plan -no-color -input=false
+#       - name: Terraform Plan
+#         id: plan
+#         # if: github.event_name == 'pull_request'
+#         run: |
+#           cd staging
+#           terraform plan -no-color -input=false
 
-        continue-on-error: true
+#         continue-on-error: true
