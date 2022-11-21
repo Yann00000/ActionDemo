@@ -29,4 +29,4 @@ jobs:
           # tar cvzf $IMAGE_TAG.tar.gz ./staging 
           # aws s3 cp $IMAGE_TAG.tar.gz s3://web-neo-csr-backup/webcsr-$IMAGE_TAG/
           # aws s3 sync s3://website.stg.dlive.tv s3://web-neo-csr-backup/webcsr-$IMAGE_TAG/
-          aws s3 sync .staging s3://web-neo-csr-backup/webcsr-v0.0.1/
+          aws s3 sync ./staging s3://web-neo-csr-backup/webcsr-v0.0.1/
