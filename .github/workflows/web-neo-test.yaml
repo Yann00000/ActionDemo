@@ -2,9 +2,11 @@ name: stg_csr_webneo
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
+  # push:
+  #   branches:
+  #     - main
+  release:
+    types: [released]
 
 permissions: write-all
 
@@ -24,9 +26,6 @@ jobs:
 
       - name: backup
         run: |
+          # aws s3 sync ./dist s3://web-neo-csr-backup/stg-csr/webcsr-v0.0.1/
           echo "IMAGE_TAG=${GITHUB_REF/refs\/tags\//}"
-          IMAGE_TAG=${GITHUB_REF/refs\/tags\//}
-          # tar cvzf $IMAGE_TAG.tar.gz ./staging 
-          # aws s3 cp $IMAGE_TAG.tar.gz s3://web-neo-csr-backup/webcsr-$IMAGE_TAG/
-          # aws s3 sync s3://website.stg.dlive.tv s3://web-neo-csr-backup/webcsr-$IMAGE_TAG/
-          aws s3 sync ./staging s3://web-neo-csr-backup/webcsr-v0.0.1/
+
