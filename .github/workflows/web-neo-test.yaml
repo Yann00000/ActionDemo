@@ -1,52 +1,52 @@
-name: stg_csr_webneo
+# name: stg_csr_webneo
 
-on:
-  workflow_dispatch:
-    inputs:
-  # push:
-  #   branches:
-  #     - main
-  # release:
-  #   types: [released]
-      web_tag_version:
-        # Friendly description to be shown in the UI instead of 'name'
-        description: 'The version to switch (PRD tag version)'
-        # Default value if no value is explicitly provided
-        default: ''
-        # Input has to be provided for the workflow to run
-        required: true
+# on:
+#   workflow_dispatch:
+#     inputs:
+#   # push:
+#   #   branches:
+#   #     - main
+#   # release:
+#   #   types: [released]
+#       web_tag_version:
+#         # Friendly description to be shown in the UI instead of 'name'
+#         description: 'The version to switch (PRD tag version)'
+#         # Default value if no value is explicitly provided
+#         default: ''
+#         # Input has to be provided for the workflow to run
+#         required: true
 
 
-permissions: write-all
+# permissions: write-all
 
-jobs:
-  Deploy:
-    if: "${{ github.event.inputs.web_tag_version != '' }}"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+# jobs:
+#   Deploy:
+#     if: "${{ github.event.inputs.web_tag_version != '' }}"
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v3
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_STAGING }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_STAGING }}
-          aws-region: us-east-1
+#       - name: Configure AWS credentials
+#         uses: aws-actions/configure-aws-credentials@v1
+#         with:
+#           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_STAGING }}
+#           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_STAGING }}
+#           aws-region: us-east-1
 
-      - name: Print backup version
-        run: | 
-          aws s3 ls  s3://web-neo-csr-backup/prd-web-neo-csr-backup/ 
-          WEB_VERSION=`aws s3 ls  s3://web-neo-csr-backup/prd-web-neo-csr-backup/ | awk '{print $2}' | sed 's/.$//' | grep -w ${{ github.event.inputs.web_tag_version }} `
-          echo $WEB_VERSION
-          [ ${{ github.event.inputs.web_tag_version }} == $WEB_VERSION ] &&  aws s3 sync s3://web-neo-csr-backup/prd-web-neo-csr-backup/${{ github.event.inputs.web_tag_version }} s3://live-a.stg.dlive.tv/${{ github.event.inputs.web_tag_version }} --delete || echo "Rollback Failed"
-        # if: ${{ github.event.inputs.web_tag_version == '$WEB_VERSION' }}
-        #   # run: echo "IMAGE_TAG=${GITHUB_REF/refs\/tags\//}"
+#       - name: Print backup version
+#         run: | 
+#           aws s3 ls  s3://web-neo-csr-backup/prd-web-neo-csr-backup/ 
+#           WEB_VERSION=`aws s3 ls  s3://web-neo-csr-backup/prd-web-neo-csr-backup/ | awk '{print $2}' | sed 's/.$//' | grep -w ${{ github.event.inputs.web_tag_version }} `
+#           echo $WEB_VERSION
+#           [ ${{ github.event.inputs.web_tag_version }} == $WEB_VERSION ] &&  aws s3 sync s3://web-neo-csr-backup/prd-web-neo-csr-backup/${{ github.event.inputs.web_tag_version }} s3://live-a.stg.dlive.tv/${{ github.event.inputs.web_tag_version }} --delete || echo "Rollback Failed"
+#         # if: ${{ github.event.inputs.web_tag_version == '$WEB_VERSION' }}
+#         #   # run: echo "IMAGE_TAG=${GITHUB_REF/refs\/tags\//}"
 
-      # - name: Rollback version
-      #   if: ${{ github.event.inputs.web_tag_version == $WEB_VERSION }}
-      #   run: |
-          # aws s3 sync ./dist s3://web-neo-csr-backup/stg-csr/webcsr-v0.0.1/
-          # echo "IMAGE_TAG=${GITHUB_REF/refs\/tags\//}"
-          # cat web_version
+#       # - name: Rollback version
+#       #   if: ${{ github.event.inputs.web_tag_version == $WEB_VERSION }}
+#       #   run: |
+#           # aws s3 sync ./dist s3://web-neo-csr-backup/stg-csr/webcsr-v0.0.1/
+#           # echo "IMAGE_TAG=${GITHUB_REF/refs\/tags\//}"
+#           # cat web_version
 
