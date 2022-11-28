@@ -37,8 +37,8 @@ jobs:
       - name: Print backup version
         run: | 
           aws s3 ls  s3://web-neo-csr-backup/prd-web-neo-csr-backup/ 
-          aws s3 ls  s3://web-neo-csr-backup/prd-web-neo-csr-backup/ | awk '{print $2}' | sed 's/.$//' | grep -w ${{ github.event.inputs.web_tag_version } > WEB_VERSION
-          web_version=`cat web_version
+          aws s3 ls  s3://web-neo-csr-backup/prd-web-neo-csr-backup/ | awk '{print $2}' | sed 's/.$//' | grep -w ${{ github.event.inputs.web_tag_version } 
+          # web_version=`cat web_version
           
 
       - name: Rollback version
