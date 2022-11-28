@@ -2,6 +2,7 @@ name: stg_csr_webneo
 
 on:
   workflow_dispatch:
+    inputs:
   # push:
   #   branches:
   #     - main
