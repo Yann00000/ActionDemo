@@ -47,5 +47,5 @@ jobs:
         run: |
           # aws s3 sync ./dist s3://web-neo-csr-backup/stg-csr/webcsr-v0.0.1/
           echo "IMAGE_TAG=${GITHUB_REF/refs\/tags\//}"
-          echo $WEB_VERSION
+          cat web_version
 
