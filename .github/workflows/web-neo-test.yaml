@@ -39,11 +39,11 @@ jobs:
           aws s3 ls  s3://web-neo-csr-backup/prd-web-neo-csr-backup/ 
           WEB_VERSION=`aws s3 ls  s3://web-neo-csr-backup/prd-web-neo-csr-backup/ | awk '{print $2}' | sed 's/.$//' | grep -w ${{ github.event.inputs.web_tag_version }} `
           # web_version=`cat web_version
-          # echo $WEB_VERSION
+          echo $WEB_VERSION
           
 
       - name: Rollback version
-        # if: 
+        if: ${{ github.event.inputs.web_tag_version == $WEB_VERSION }}
         run: |
           # aws s3 sync ./dist s3://web-neo-csr-backup/stg-csr/webcsr-v0.0.1/
           echo "IMAGE_TAG=${GITHUB_REF/refs\/tags\//}"
