@@ -1,4 +1,4 @@
-name: stg_csr_webneo
+name: PRD_Rollback_csr_web
 
 on:
   workflow_dispatch:
@@ -10,6 +10,10 @@ on:
         # Input has to be provided for the workflow to run
         required: true
 
+env:
+  AWS_REGION: us-east-1
+  AWS_PRD_S3_BUCKETPATH: "s3://live-a.stg.dlive.tv/"
+  AWS_PRD_BACKUP_S3_BUCKETPATH: "s3://web-neo-csr-backup/prd-web-neo-csr-backup/"
 
 permissions: write-all
 
@@ -30,7 +34,6 @@ jobs:
 
       - name: Rollback version
         run: | 
-          aws s3 ls  s3://web-neo-csr-backup/prd-web-neo-csr-backup/ 
-          WEB_VERSION=`aws s3 ls  s3://web-neo-csr-backup/prd-web-neo-csr-backup/ | awk '{print $2}' | sed 's/.$//' | grep -w ${{ github.event.inputs.web_tag_version }} `
+          WEB_VERSION=`aws s3 ls  ${{ env.AWS_PRD_BACKUP_S3_BUCKETPATH }} | awk '{print $2}' | sed 's/.$//' | grep -w ${{ github.event.inputs.web_tag_version }} `
           echo $WEB_VERSION
-          [ ${{ github.event.inputs.web_tag_version }} == $WEB_VERSION ] &&  aws s3 sync s3://web-neo-csr-backup/prd-web-neo-csr-backup/${{ github.event.inputs.web_tag_version }} s3://live-a.stg.dlive.tv/${{ github.event.inputs.web_tag_version }} --delete || echo "Rollback Failed"
+          [ ${{ github.event.inputs.web_tag_version }} == $WEB_VERSION ] &&  aws s3 sync ${{ env.AWS_PRD_BACKUP_S3_BUCKETPATH }}${{ github.event.inputs.web_tag_version }} ${{ env.AWS_PRD_S3_BUCKETPATH }}${{ github.event.inputs.web_tag_version }} --delete || echo "Rollback Failed"
