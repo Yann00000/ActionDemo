@@ -1,4 +1,4 @@
-name: PRD_Rollback_csr_web
+name: PRD_Rollback_csr_web_test
 
 on:
   workflow_dispatch:
