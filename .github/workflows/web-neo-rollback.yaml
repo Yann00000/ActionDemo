@@ -12,7 +12,7 @@ on:
 
 env:
   AWS_REGION: us-east-1
-  AWS_PRD_S3_BUCKETPATH: "s3://live-a.stg.dlive.tv/"
+  AWS_PRD_S3_BUCKETPATH: "s3://livestream-a.stg.dlive.tv/"
   AWS_PRD_BACKUP_S3_BUCKETPATH: "s3://web-neo-csr-backup/prd-web-neo-csr-backup/"
 
 permissions: write-all
@@ -22,18 +22,18 @@ jobs:
     if: "${{ github.event.inputs.web_tag_version != '' }}"
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      # - name: Checkout
+      #   uses: actions/checkout@v3
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_STAGING }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_STAGING }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCES S_KEY_STAGING }}
           aws-region: us-east-1
 
       - name: Rollback version
         run: | 
           WEB_VERSION=`aws s3 ls  ${{ env.AWS_PRD_BACKUP_S3_BUCKETPATH }} | awk '{print $2}' | sed 's/.$//' | grep -w ${{ github.event.inputs.web_tag_version }} `
           echo $WEB_VERSION
-          [ ${{ github.event.inputs.web_tag_version }} == $WEB_VERSION ] &&  aws s3 sync ${{ env.AWS_PRD_BACKUP_S3_BUCKETPATH }}${{ github.event.inputs.web_tag_version }} ${{ env.AWS_PRD_S3_BUCKETPATH }}${{ github.event.inputs.web_tag_version }} --delete || echo "Rollback Failed"
+          # [ ${{ github.event.inputs.web_tag_version }} == $WEB_VERSION ] &&  aws s3 sync ${{ env.AWS_PRD_BACKUP_S3_BUCKETPATH }}${{ github.event.inputs.web_tag_version }} ${{ env.AWS_PRD_S3_BUCKETPATH }} --delete || echo "Rollback Failed"
