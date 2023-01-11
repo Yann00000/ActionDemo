@@ -100,4 +100,4 @@ jobs:
       - name: Checkout
         run: | 
           docker ps -a 
-          mysql -h 127.0.0.1 -u root -pmy-secret -e "show databases;"
+          mysql -h 127.0.0.1 -u root -ppassword -e "show databases;"
