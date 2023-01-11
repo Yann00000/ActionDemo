@@ -91,7 +91,7 @@ jobs:
           MYSQL_ROOT_PASSWORD: password
         ports:
           - 3306
-        options: --health-cmd="mysql -h 127.0.0.1 -u root -ppassword -e "show databases;"" --health-interval=10s --health-timeout=5s --health-retries=3
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
       # mongodb:
       #   image: mongo:4.0.27
       #   ports:
