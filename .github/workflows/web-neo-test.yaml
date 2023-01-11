@@ -50,3 +50,53 @@
 #           # echo "IMAGE_TAG=${GITHUB_REF/refs\/tags\//}"
 #           # cat web_version
 
+
+name: STG-abon-ci
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+
+env:
+  AWS_REGION: eu-west-1
+  HELM_VERSION: "v3.4.0"
+  CHART_REPO: "s3://devops-helm-registry"
+
+  ECR_NAME: "abone" # AWS ECR directory
+  CHART_NAME: "abone" # helm chart name
+
+  MAIN_CHART_NAME_LINOAPP: linoapp
+  MAIN_CHART_NAME_JOB: jobs
+  MAIN_CHART_NAME_LINOAPP_WS: linoapp-ws
+  MAIN_CHART_NAME_LINOAPP_DOOR: linoapp-door
+
+permissions: write-all
+
+jobs:
+  Test:
+    name: test
+    runs-on: ubuntu-latest
+    services:
+      redis:
+        image: redis:latest
+        ports:
+          - 6379:6379
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_DATABASE: abone_lino_db
+          MYSQL_USER: root
+          MYSQL_PASSWORD: my-secret
+        ports:
+          - 3306:3306
+      # mongodb:
+      #   image: mongo:4.0.27
+      #   ports:
+      #     - 27017:27017
+    steps:
+      - name: Checkout
+        run: | 
+          docker ps -a 
+          mysql -h 127.0.0.1 -u root -pmysql-secret -e "show databases;"
