@@ -90,7 +90,7 @@ jobs:
           MYSQL_PASSWORD: password
           MYSQL_ROOT_PASSWORD: password
         ports:
-          - 3306
+          - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
       # mongodb:
       #   image: mongo:4.0.27
@@ -100,4 +100,6 @@ jobs:
       - name: Checkout
         run: | 
           docker ps -a 
+          mysql -h 127.0.0.1 -u root -ppassword -e "show databases;"
+          mysql -h 127.0.0.1 -u root -ppassword -e "show databases;"
           mysql -h 127.0.0.1 -u root -ppassword -e "show databases;"
