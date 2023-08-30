@@ -7,20 +7,20 @@ on:
       - 'main'
 
 env:
-  AWS_REGION: eu-west-1
-  HELM_VERSION: "v3.4.0"
-  CHART_REPO: "s3://devops-helm-registry"
-  CHART_REPO_NAME: "linoapp"
+#   AWS_REGION: eu-west-1
+#   HELM_VERSION: "v3.4.0"
+#   CHART_REPO: "s3://devops-helm-registry"
+#   CHART_REPO_NAME: "linoapp"
 
 #   ECR_NAME: "lino-stream" # AWS ECR directory
 #   CHART_NAME: "stream" # helm chart name
 
-  MAIN_CHART_NAME_LINOAPP: linoapp
-  MAIN_CHART_NAME_JOB: jobs
-  MAIN_CHART_NAME_LINOAPP_WS: linoapp-ws
-  MAIN_CHART_NAME_LINOAPP_DOOR: linoapp-door
-  MAIN_CHART_DIR: "stg/linoapp"
-  MYSQL_DATABASE: lino-app-backend_lino_db
+#   MAIN_CHART_NAME_LINOAPP: linoapp
+#   MAIN_CHART_NAME_JOB: jobs
+#   MAIN_CHART_NAME_LINOAPP_WS: linoapp-ws
+#   MAIN_CHART_NAME_LINOAPP_DOOR: linoapp-door
+#   MAIN_CHART_DIR: "stg/linoapp"
+#   MYSQL_DATABASE: lino-app-backend_lino_db
 
 permissions: write-all
 
